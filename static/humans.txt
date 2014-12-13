@@ -1,0 +1,7 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Asaf Gartner -- Co-creator
+    Amir Grozki  -- Co-creator
