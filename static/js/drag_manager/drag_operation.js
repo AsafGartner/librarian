@@ -33,13 +33,13 @@ DragOperation.prototype.leaveReceiver = function(receiver) {
 };
 
 DragOperation.prototype.move = function(pageX, pageY) {
-  if (!this.dragging) {
+  if (!this.isDragging) {
     var diffX = this.mousePos.x - pageX;
     var diffY = this.mousePos.y - pageY
     var sqDistance = (diffX * diffX) + (diffY * diffY);
 
     if (sqDistance > DragOperation.SQUARE_MIN_DISTANCE_FOR_DRAG) {
-      this.dragging = true;
+      this.isDragging = true;
       this.sender.dragStart(pageX, pageY);
     }
   } else {

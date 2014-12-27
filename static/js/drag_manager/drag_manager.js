@@ -196,12 +196,12 @@ DragManager.prototype._onGlobalMouseMove = function(ev) {
 };
 
 DragManager.prototype._onGlobalMouseUp = function(ev) {
-  if (this.dragOperation) {
+  if (this.dragOperation && this.dragOperation.isDragging) {
     this.dragOperation.drop(ev.pageX, ev.pageY);
-    this.dragOperation = null;
     this._enableSelect();
     ev.preventDefault();
   }
+  this.dragOperation = null;
 };
 
 DragManager.prototype._onGlobalScroll = function(ev) {
