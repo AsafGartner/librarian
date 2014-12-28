@@ -5,7 +5,7 @@ button,
 input,
 select,
 textarea {
-    color: #222;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 html {
@@ -59,6 +59,16 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+ul {
+    margin: 0;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    padding: 12px 24px;
+}
+
 #container {
     display: flex;
     flex-direction: column;
@@ -66,7 +76,9 @@ textarea {
 }
 
 #container header {
-    flex: 0 0 100px;
+    background: #3f51b5;
+    color: rgba(255, 255, 255, 0.87);
+    flex: 0 0 auto;
 }
 
 #container footer {
@@ -74,11 +86,100 @@ textarea {
 }
 
 #main {
+    background: #f9f9f9;
+    display: flex;
     flex: 1 0 500px;
+    flex-direction: row;
 }
 
+#folders {
+    background: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.14);
+    flex: 0 0 200px;
+}
 
+#folders ul {
+    padding: 0;
+}
 
+#folders li {
+    font-size: 16px;
+    height: 48px;
+    line-height: 24px;
+    padding: 12px 24px 10px;
+}
+
+#editor {
+    box-shadow: 0 7px 5px -5px rgba(0, 0, 0, 0.26) inset; /* This fakes the drop shadow formed by the toolbar */
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+}
+
+.image-container,
+.docs-container {
+    padding: 5px;
+}
+
+.image-container {
+    border-right: 1px solid rgba(0, 0, 0, 0.14);
+    flex: 1 0 auto;
+}
+
+.docs-container {
+    flex: 0 1 50%;
+    z-index: 0;
+}
+
+.image,
+.doc,
+.doc:before,
+.doc:after {
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14);
+    display: inline-block;
+    margin: 10px;
+    padding: 6px;
+    width: 80px;
+    height: 113px;
+}
+
+.doc {
+    position: relative;
+}
+.doc:before,
+.doc:after {
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+.doc:before {
+    top: -4px;
+    left: -4px;
+    z-index: -1;
+}
+.doc:after {
+    top: -7px;
+    left: -7px;
+    z-index: -2;
+}
+
+.doc.droppable,
+.doc.droppable:before,
+.doc.droppable:after {
+    border-color: #c5cae9;
+}
+
+.image {
+    z-index: 1;
+}
+
+.image.dragged {
+    opacity: 0.5;
+}
 
 /* ==========================================================================
    Media Queries
