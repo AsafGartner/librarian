@@ -11,14 +11,8 @@
         <link rel="stylesheet" href="static/css/main.css">
 
         <script src="static/js/modernizr-2.8.3.js"></script>
-        <style>
-          body.dragging {
-            -webkit-user-select: none;
-            -moz-user-select: -moz-none;
-            -ms-user-select: none;
-            user-select: none;
-          }
-        </style>
+        <script src="static/js/react/react.js"></script>
+        <script src="static/js/react/JSXTransformer.js"></script>
     </head>
     <body>
         <div id="container">
@@ -27,27 +21,9 @@
             </header>
             <div id="main">
               <nav id="folders">
-                <ul>
-                  <li>folder</li>
-                  <li>folder</li>
-                  <li>folder</li>
-                </ul>
-              </nav>
 
-              <section id="editor">
-                <div class="image-container">
-                  <div class="image">1</div>
-                  <div class="image">2</div>
-                  <div class="image">3</div>
-                  <div class="image">4</div>
-                </div>
-                <div class="docs-container">
-                  <div class="doc">1</div>
-                  <div class="doc">2</div>
-                  <div class="doc">3</div>
-                  <div class="doc">3.5</div>
-                  <div class="doc">4</div>
-                </div>
+              </nav>
+              <section id="content">
               </section>
             </div>
             <!--<footer></footer>-->
@@ -62,64 +38,25 @@
         <script src="static/js/drag_manager/drag_operation.js" type="text/javascript"></script>
         <script src="static/js/drag_manager/drag_interaction.js" type="text/javascript"></script>
         <script src="static/js/drag_manager/drag_manager.js" type="text/javascript"></script>
-
-        <script type="text/javascript">
-          var dragManager = new DragManager();
-          var images = $(".image");
-          var docs = $(".doc");
-
-          dragManager.addInteraction("image", "doc", function(imageType, imageData, docType, docData) {
-              console.log("Dropped", imageData, "on", docData);
-          });
-
-          function makeDraggable(element, type, id) {
-            var startPos = null;
-            var jqEl = $(element);
-            var draggedElement = null;
-            dragManager.setSender(
-              element,
-              type,
-              id,
-              function(element, pageX, pageY) {
-                draggedElement = jqEl.clone();
-                var offset = jqEl.offset();
-                startPos = { x: pageX - offset.left, y: pageY - offset.top };
-                draggedElement.insertAfter(jqEl);
-                jqEl.addClass("dragged");
-                draggedElement.css({ position: "absolute", "pointer-events": "none" });
-                draggedElement.css({ top: (pageY - startPos.y) + "px", left: (pageX - startPos.x) + "px" });
-              },
-              function(element, pageX, pageY) {
-                draggedElement.css({ top: (pageY - startPos.y) + "px", left: (pageX - startPos.x) + "px" });
-              },
-              function() {
-                jqEl.removeClass("dragged");
-                draggedElement.remove();
-              },
-              function() {
-                jqEl.remove();
-                draggedElement.remove();
-              }
-            );
-          }
-
-          var counter = 0;
-          images.each(function() {
-            makeDraggable(this, "image", counter++);
-            $(this).on("click", function(){ console.log("click"); });
-          });
-
-          counter = 0;
-          docs.each(function() {
-            var doc = $(this);
-            dragManager.setReceiver(
-              this,
-              "doc",
-              "doc" + counter++,
-              function() { doc.addClass("droppable"); },
-              function() { doc.removeClass("droppable"); }
-            );
-          });
+        <script type="text/jsx" src="static/js/ui/folder.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/folders.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/image.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/images_container.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/document.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/documents_container.jsx"></script>
+        <script type="text/jsx" src="static/js/ui/editor.jsx"></script>
+        <script>
+          this.dragManager = new DragManager();
+        </script>
+        <script type="text/jsx">
+          React.render(
+            <Folders dragManager={dragManager} />,
+            document.getElementById('folders')
+          );
+          React.render(
+            <Editor dragManager={dragManager} />,
+            document.getElementById('content')
+          );
         </script>
 
     </body>

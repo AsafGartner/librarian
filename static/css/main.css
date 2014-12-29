@@ -134,31 +134,47 @@ header h1 {
     padding: 0;
 }
 
-#folders li {
-    font-size: 16px;
+.folder a {
+    background: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    display: block;
+    font-size: 15px;
     height: 48px;
     line-height: 24px;
     padding: 12px 24px 10px;
+    text-decoration: none;
+}
+.folder.droppable a,
+.folder a:focus {
+    background: #e8eaf6;
+}
+.folder a:focus {
+    outline: 0;
+}
+
+#content {
+    box-shadow: 0 7px 5px -5px rgba(0, 0, 0, 0.26) inset; /* This fakes the drop shadow formed by the toolbar */
+    display: flex;
+    flex: 1 0 auto;
 }
 
 #editor {
-    box-shadow: 0 7px 5px -5px rgba(0, 0, 0, 0.26) inset; /* This fakes the drop shadow formed by the toolbar */
     display: flex;
     flex: 1 0 auto;
     flex-direction: row;
 }
 
-.image-container,
-.docs-container {
+.images-container,
+.documents-container {
     padding: 5px;
 }
 
-.image-container {
+.images-container {
     border-right: 1px solid rgba(0, 0, 0, 0.14);
     flex: 1 0 auto;
 }
 
-.docs-container {
+.documents-container {
     flex: 0 1 50%;
     z-index: 0;
 }
