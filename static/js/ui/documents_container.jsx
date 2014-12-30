@@ -5,15 +5,12 @@ var DocumentsContainer = React.createClass({
     };
   },
   componentDidMount: function() {
-    setTimeout(function() {
-      this.setState({
-        data: [
-          { name: 'Document 1' },
-          { name: 'Document 2' },
-          { name: 'Document 3' }
-        ]
-      });
-    }.bind(this), 5000);
+    $.getJSON('documents')
+      .done(function(data) {
+        this.setState({
+          data: data
+        });
+      }.bind(this));
   },
   render: function() {
     var dragManager = this.props.dragManager;
