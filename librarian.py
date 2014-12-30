@@ -1,11 +1,28 @@
 import cherrypy
 import os
 
+from os import listdir
+from os.path import isfile, join, basename, splitext
+
 
 class Librarian(object):
     @cherrypy.expose
     def index(self):
         return {'msg': 'Librarian'}
+
+class LibrarianImagesService(object):
+    exposed = True
+
+    @cherrypy.tools.json_out()
+    def GET(self):
+        path = 'static/images'
+
+        return [
+            {
+                'key': splitext(basename(f))[0],
+                'image_path': join(path, f)
+            } for f in listdir(path) if isfile(join(path, f))
+        ]
 
 
 if __name__ == '__main__':
@@ -32,6 +49,12 @@ if __name__ == '__main__':
         '/static': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'static'
+        },
+        '/images': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.response_headers.on': True
         }
     }
-    cherrypy.quickstart(Librarian(), '/', conf)
+    librarian = Librarian()
+    librarian.images = LibrarianImagesService()
+    cherrypy.quickstart(librarian, '/', conf)

@@ -5,15 +5,13 @@ var ImagesContainer = React.createClass({
     };
   },
   componentDidMount: function() {
-    setTimeout(function() {
-      this.setState({
-        data: [
-          { name: 'Image 1' },
-          { name: 'Image 2' },
-          { name: 'Image 3' }
-        ]
-      });
-    }.bind(this), 5000);
+    $.getJSON('images')
+      .done(function(data) {
+        console.log(data);
+        this.setState({
+          data: data
+        });
+      }.bind(this));
   },
   render: function() {
 
@@ -21,7 +19,9 @@ var ImagesContainer = React.createClass({
 
     var images = this.state.data.map(function(d) {
       return (
-        <Image key={d.name} name={d.name} dragManager={dragManager} />
+        <Image  key={d.key}
+                image_path={d.image_path}
+                dragManager={dragManager} />
       );
     });
 

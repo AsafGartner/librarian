@@ -190,8 +190,20 @@ header h1 {
     display: inline-block;
     margin: 10px;
     padding: 6px;
-    width: 80px;
-    height: 113px;
+    width: 160px;
+    height: 226px;
+}
+
+.image {
+    z-index: 1;
+}
+.image a {
+    display: block;
+    height: 100%;
+}
+
+.image.dragged {
+    opacity: 0.5;
 }
 
 .doc {
@@ -219,14 +231,6 @@ header h1 {
 .doc.droppable:before,
 .doc.droppable:after {
     border-color: #c5cae9;
-}
-
-.image {
-    z-index: 1;
-}
-
-.image.dragged {
-    opacity: 0.5;
 }
 
 /* ==========================================================================
