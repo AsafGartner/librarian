@@ -7,7 +7,6 @@ var ImagesContainer = React.createClass({
   componentDidMount: function() {
     $.getJSON('images')
       .done(function(data) {
-        console.log(data);
         this.setState({
           data: data
         });

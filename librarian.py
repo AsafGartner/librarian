@@ -24,6 +24,16 @@ class LibrarianImagesService(object):
             } for f in listdir(path) if isfile(join(path, f))
         ]
 
+class LibrarianFoldersService(object):
+    exposed = True
+
+    @cherrypy.tools.json_out()
+    def GET(self):
+        return [
+            {
+                'name': "Folder %s" % (i + 1)
+            } for i in range(3)
+        ]
 
 if __name__ == '__main__':
 
@@ -53,8 +63,13 @@ if __name__ == '__main__':
         '/images': {
             'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
             'tools.response_headers.on': True
+        },
+        '/folders': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.response_headers.on': True
         }
     }
     librarian = Librarian()
     librarian.images = LibrarianImagesService()
+    librarian.folders = LibrarianFoldersService()
     cherrypy.quickstart(librarian, '/', conf)

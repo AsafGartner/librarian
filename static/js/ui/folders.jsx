@@ -5,15 +5,12 @@ var Folders = React.createClass({
     };
   },
   componentDidMount: function() {
-    setTimeout(function() {
-      this.setState({
-        data: [
-          { name: 'Folder 1' },
-          { name: 'Folder 2' },
-          { name: 'Folder 3' }
-        ]
-      });
-    }.bind(this), 5000);
+    $.getJSON('folders')
+      .done(function(data) {
+        this.setState({
+          data: data
+        });
+      }.bind(this));
 
     this.props.dragManager.addInteraction("image", "folder", function(imageType, imageData, docType, docData) {
         console.log("Dropped", arguments);
