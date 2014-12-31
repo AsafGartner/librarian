@@ -62,6 +62,11 @@ if __name__ == '__main__':
     from jinja2tool import Jinja2Tool
     cherrypy.tools.template = Jinja2Tool()
 
+    method_dispatcher_conf = {
+        'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+        'tools.response_headers.on': True
+    }
+
     conf = {
         '/': {
             'tools.sessions.on': True,
@@ -74,18 +79,9 @@ if __name__ == '__main__':
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'static'
         },
-        '/images': {
-            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
-            'tools.response_headers.on': True
-        },
-        '/documents': {
-            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
-            'tools.response_headers.on': True
-        },
-        '/folders': {
-            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
-            'tools.response_headers.on': True
-        }
+        '/images': method_dispatcher_conf,
+        '/documents': method_dispatcher_conf,
+        '/folders': method_dispatcher_conf
     }
     librarian = Librarian()
     librarian.images = LibrarianImagesService()
