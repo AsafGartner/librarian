@@ -3,9 +3,6 @@ var Document = React.createClass({
   componentDidMount: function() {
     this.makeDroppable(this.props.dragManager, this.getDOMNode(), "doc", null);
   },
-  componentDidUpdate: function() {
-    this.makeDroppable(this.props.dragManager, this.getDOMNode(), "doc", null);
-  },
   render: function() {
     return (
       <div className="doc">

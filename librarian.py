@@ -1,8 +1,9 @@
 import cherrypy
 import os
+import json
 
-from os import listdir
-from os.path import isfile, join, basename, splitext
+from os.path import splitext
+from os.path import basename
 
 
 class Librarian(object):
@@ -11,19 +12,31 @@ class Librarian(object):
         return {'msg': 'Librarian'}
 
 
+from image_directory_updater import ImageDirectoryUpdater
+
+image_path = 'static/images'
+updater = ImageDirectoryUpdater(image_path)
+
+
 class LibrarianImagesService(object):
     exposed = True
 
-    @cherrypy.tools.json_out()
     def GET(self):
-        path = 'static/images'
+        cherrypy.response.headers["Content-Type"] = "text/event-stream"
+        if updater.is_update_available():
+            images = updater.get_update()
 
-        return [
-            {
-                'key': splitext(basename(f))[0],
-                'image_path': join(path, f)
-            } for f in listdir(path) if isfile(join(path, f))
-        ]
+            images = [
+                {
+                    'key': splitext(basename(f))[0],
+                    'image_path': f
+                } for f in images
+            ]
+
+            return "event: update\n" + "data: " + json.dumps(images) + "\n\n"
+        else:
+            return "\n"
+    GET._cp_config = {'response.stream': True, 'tools.encode.encoding': 'utf-8'}
 
 
 class LibrarianDocumentsService(object):
@@ -66,6 +79,13 @@ if __name__ == '__main__':
         'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
         'tools.response_headers.on': True
     }
+
+    from watchdog.observers import Observer
+    from directory_watch_handler import DirectoryWatchHandler
+
+    observer = Observer()
+    observer.schedule(DirectoryWatchHandler(updater), image_path)
+    observer.start()
 
     conf = {
         '/': {

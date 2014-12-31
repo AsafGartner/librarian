@@ -5,12 +5,15 @@ var ImagesContainer = React.createClass({
     };
   },
   componentDidMount: function() {
-    $.getJSON('images')
-      .done(function(data) {
-        this.setState({
-          data: data
-        });
-      }.bind(this));
+    var es = new EventSource('images');
+
+    es.addEventListener('update', function(e) {
+      var data = JSON.parse(e.data);
+
+      this.setState({
+        data: data
+      });
+    }.bind(this), false);
   },
   render: function() {
 

@@ -3,9 +3,6 @@ var Image = React.createClass({
   componentDidMount: function() {
     this.makeDraggable(this.props.dragManager, this.getDOMNode(), "image", null);
   },
-  componentDidUpdate: function() {
-    this.makeDraggable(this.props.dragManager, this.getDOMNode(), "image", null);
-  },
   render: function() {
     var style = {
       backgroundImage: 'url(' + this.props.image_path + ')',
