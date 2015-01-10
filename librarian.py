@@ -1,8 +1,12 @@
 import cherrypy
 import os
+from web.raw.raw import Raw
 
 
 class Librarian(object):
+    def __init__(self):
+      self.raw = Raw()
+
     @cherrypy.expose
     def index(self):
         return {'msg': 'Librarian'}

@@ -109,32 +109,34 @@ header h1 {
     padding: 12px 24px 10px;
 }
 
-#editor {
+#editor, #editor .raw_container {
     box-shadow: 0 7px 5px -5px rgba(0, 0, 0, 0.26) inset; /* This fakes the drop shadow formed by the toolbar */
     display: flex;
     flex: 1 0 auto;
     flex-direction: row;
 }
 
-.image-container,
-.docs-container {
+.document_gallery,
+.page_gallery {
     padding: 5px;
 }
 
-.image-container {
+.page_gallery {
     border-right: 1px solid rgba(0, 0, 0, 0.14);
     flex: 1 0 auto;
 }
 
-.docs-container {
+.document_gallery {
     flex: 0 1 50%;
     z-index: 0;
 }
 
-.image,
-.doc,
-.doc:before,
-.doc:after {
+.page_gallery_page,
+.document_gallery_new_document,
+.document_gallery_document,
+.document_gallery_document:before,
+.document_gallery_document:after {
+    vertical-align: top;
     background: #fff;
     border: 1px solid #dfdfdf;
     border-radius: 3px;
@@ -146,38 +148,46 @@ header h1 {
     height: 113px;
 }
 
-.doc {
+.document_gallery_new_document,
+.document_gallery_document {
     position: relative;
 }
-.doc:before,
-.doc:after {
+.document_gallery_new_document:before,
+.document_gallery_new_document:after,
+.document_gallery_document:before,
+.document_gallery_document:after {
     content: "";
     position: absolute;
     margin: 0;
     padding: 0;
 }
-.doc:before {
+.document_gallery_new_document:before,
+.document_gallery_document:before {
     top: -4px;
     left: -4px;
     z-index: -1;
 }
-.doc:after {
+.document_gallery_new_document:after,
+.document_gallery_document:after {
     top: -7px;
     left: -7px;
     z-index: -2;
 }
 
-.doc.droppable,
-.doc.droppable:before,
-.doc.droppable:after {
+.document_gallery_new_document.droppable,
+.document_gallery_new_document.droppable:before,
+.document_gallery_new_document.droppable:after,
+.document_gallery_document.droppable,
+.document_gallery_document.droppable:before,
+.document_gallery_document.droppable:after {
     border-color: #c5cae9;
 }
 
-.image {
+.page_gallery_page {
     z-index: 1;
 }
 
-.image.dragged {
+.page_gallery_page.dragged {
     opacity: 0.5;
 }
 
