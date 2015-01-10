@@ -1,3 +1,8 @@
+var DragOperation = require('./drag_operation');
+var DragInteraction = require('./drag_interaction');
+var DragSender = require('./drag_sender');
+var DragReceiver = require('./drag_receiver');
+
 function DragManager() {
   this.receivers = [];
   this.receiverCallbacks = {};
@@ -221,3 +226,5 @@ DragManager.prototype._disableSelect = function() {
 DragManager.prototype._enableSelect = function() {
   document.body.classList.remove("dragging");
 };
+
+module.exports = DragManager;

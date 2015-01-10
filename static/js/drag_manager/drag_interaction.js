@@ -12,3 +12,5 @@ DragInteraction.prototype.respondsTo = function(senderType, receiverType) {
 DragInteraction.prototype.trigger = function(senderData, receiverData) {
   this.dropCallback(this.senderType, senderData, this.receiverType, receiverData);
 };
+
+module.exports = DragInteraction;

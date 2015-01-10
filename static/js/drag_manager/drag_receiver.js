@@ -29,3 +29,5 @@ DragReceiver.prototype.leave = function() {
     return this.leaveCallback(this.getElement());
   }
 };
+
+module.exports = DragReceiver;
