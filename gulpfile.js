@@ -1,19 +1,20 @@
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var sass = require('gulp-sass');
+var rename = require('gulp-rename');
 var del = require('del');
 
 gulp.task('clean', function(cb) {
   // You can use multiple globbing patterns as you would with `gulp.src`
-  del(['build/**/*.*'], cb);
+  del(['build/**/*'], cb);
 });
 
 gulp.task('scripts', function() {
-  gulp.src('static/js/app.js')
-    .pipe(browserify())
+  gulp.src('static/js/**/*.js')
     .pipe(gulp.dest('build/js'));
 
-  gulp.src('static/js/vendor/**/*.js')
+  gulp.src('static/js/app.js')
+    .pipe(browserify())
     .pipe(gulp.dest('build/js'));
 });
 
@@ -23,10 +24,16 @@ gulp.task('scss', function() {
     .pipe(gulp.dest('build/css'));
 });
 
-// Rerun the task when a file changes
-gulp.task('watch', function() {
-  gulp.watch('static/js/**/*.js', ['clean', 'scripts', 'scss']);
-  gulp.watch('static/css/**/*.scss', ['clean', 'scripts', 'scss']);
+gulp.task('fonts', function() {
+  gulp.src('static/fonts/**/*')
+    .pipe(gulp.dest('build/fonts'));
 });
 
-gulp.task('default', ['clean', 'scripts', 'scss', 'watch']);
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+  gulp.watch('static/**/*.*', ['build']);
+});
+
+gulp.task('build', ['scripts', 'scss', 'fonts']);
+
+gulp.task('default', ['clean', 'build', 'watch']);
