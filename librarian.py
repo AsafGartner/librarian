@@ -31,7 +31,7 @@ if __name__ == '__main__':
         },
         '/static': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'static'
+            'tools.staticdir.dir': 'build'
         }
     }
     cherrypy.quickstart(Librarian(), '/', conf)

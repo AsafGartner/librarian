@@ -1,3 +1,5 @@
+var Stack = require('../utils/stack');
+
 function DragOperation(sender, interactions, mousePageX, mousePageY) {
   this.interactions = interactions;
   this.sender = sender;
@@ -76,3 +78,5 @@ DragOperation.prototype._findInteraction = function(receiverType) {
   }
   return null;
 };
+
+module.exports = DragOperation;

@@ -43,3 +43,5 @@ DragSender.prototype.dragEnd = function() {
     return this.dragEndCallback(this.getElement());
   }
 };
+
+module.exports = DragSender;

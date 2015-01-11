@@ -26,3 +26,5 @@ Stack.prototype.isEmpty = function() {
 Stack.prototype.clear = function() {
   this.stack = [];
 };
+
+module.exports = Stack;
